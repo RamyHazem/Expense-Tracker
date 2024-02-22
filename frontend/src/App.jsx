@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import fetchData from "./FetchData";
-import Expense from "./Expense";
+import Expense from "./components/Expense";
+import ExpenseForm from "./components/ExpenseForm";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
-    fetchData().then((res) => setExpenses((prevExp) => [...prevExp, res]));
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    const expenses_url = "http://127.0.0.1:5000/expenses";
+    const response = await fetch(expenses_url)
+      .then((res) => res.json())
+      .then((data) => setExpenses([data]));
+  };
 
   return (
     <>
@@ -21,6 +28,7 @@ function App() {
           reason={expense.reason}
         />
       ))}
+      <ExpenseForm />
     </>
   );
 }
