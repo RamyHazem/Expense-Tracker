@@ -3,3 +3,12 @@ form {
   flex-direction: column;
   width: 10vw;
 }
+
+.expense {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  border: 1px solid black;
+  margin-top: 2rem;
+  align-items: center;
+}

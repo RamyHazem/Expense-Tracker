@@ -2,20 +2,15 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Expense from "./components/Expense";
 import ExpenseForm from "./components/ExpenseForm";
+import fetchData from "./FetchData";
+import ResetExpenses from "./components/ResetExpenses";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
 
   useEffect(() => {
-    fetchData();
+    fetchData(setExpenses);
   }, []);
-
-  const fetchData = async () => {
-    const expenses_url = "http://127.0.0.1:5000/expenses";
-    const response = await fetch(expenses_url)
-      .then((res) => res.json())
-      .then((data) => setExpenses([data]));
-  };
 
   return (
     <>
@@ -28,7 +23,8 @@ function App() {
           reason={expense.reason}
         />
       ))}
-      <ExpenseForm />
+      <ExpenseForm setExpenses={setExpenses} />
+      <ResetExpenses />
     </>
   );
 }
